@@ -1,4 +1,4 @@
-from utils.hasher import PasswordHasher
+from app.utils.hasher import PasswordHasher
 from datetime import datetime
 
 class User:
@@ -11,15 +11,7 @@ class User:
     def isSamePassword(self, password: str) -> bool:
         return PasswordHasher.compare(self.password, password)
 
-    def __repr__(self) -> str:
-        return '''
-            User(
-                id: {self.id},
-                email: {self.email},
-                password: {self.password},
-                createdAt: {self.createdAt},
-            )
-        '''
+    
     
     def payload(self) -> dict[str, any]:
         return {
@@ -32,3 +24,13 @@ class User:
             **self.payload(),
             'createdAt': self.createdAt,
         }
+    
+    def __repr__(self) -> str:
+        return '''
+            User(
+                id: {self.id},
+                email: {self.email},
+                password: {self.password},
+                createdAt: {self.createdAt},
+            )
+        '''

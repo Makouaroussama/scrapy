@@ -1,12 +1,10 @@
-from models.user import User
+from app.models.user import User
 
 
 class UserRepository:
     async def exists(id: str, email: str) -> bool:
         if id==None and email==None: 
             return False
-        
-        
     
     async def getUserById(id: str) -> User | None:
         return None

@@ -1,9 +1,9 @@
-from . import routes
+from app import auth
 from flask import request, make_response
-import jwt
+from jwt import PyJWT
 import os
 
-@routes.route('/api/auth/currentuser')
+@auth.route('/currentuser')
 def currentuser():
     authToken = request.cookies.get("auth_token")
     res = make_response()
@@ -15,7 +15,7 @@ def currentuser():
         return res;
     
     try:
-        payload = jwt.decode(authToken, os.getenv("JWT_KEY"))
+        payload = PyJWT.decode(authToken, os.getenv("JWT_KEY"))
         res.data = {
             "currentuser": payload
         }
