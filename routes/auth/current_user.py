@@ -1,17 +1,17 @@
-from app import app
+from . import routes
 from flask import request, make_response
 import jwt
 import os
 
-@app.route('/api/auth/currentuser')
+@routes.route('/api/auth/currentuser')
 def currentuser():
     authToken = request.cookies.get("auth_token")
-    res = make_response("Response")
+    res = make_response()
+    res.data = {
+        "currentuser": None
+    }
 
     if(authToken == None):
-        res.data = {
-            "currentuser": None
-        }
         return res;
     
     try:
@@ -20,9 +20,7 @@ def currentuser():
             "currentuser": payload
         }
     except:
-        res.data = {
-            "currentuser": None
-        }
+        pass;
 
     return res
 
