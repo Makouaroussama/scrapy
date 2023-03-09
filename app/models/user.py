@@ -1,8 +1,8 @@
 from app.utils.hasher import PasswordHasher
 from datetime import datetime
-
+from typing import Optional
 class User:
-    def __init__(self, id: str, email: str, password: str, createdAt: datetime | None):
+    def __init__(self, id: str, email: str, password: str, createdAt: Optional[datetime] = None):
         self.id = id
         self.email = email
         self.password = PasswordHasher.toHash(password)

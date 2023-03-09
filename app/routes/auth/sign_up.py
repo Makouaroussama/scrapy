@@ -16,7 +16,7 @@ async def signup():
     if not validators.email(email):
         raise BadRequest("Email must be valid")
     
-    if not validators.between(password, min=5, max=20):
+    if not validators.between(password.__len__(), min=5, max=20):
         raise BadRequest("Password should be between 5 and 20 characters long")
     
     # check if a user with provided email already existed and return error if true

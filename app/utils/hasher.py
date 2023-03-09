@@ -5,4 +5,4 @@ class PasswordHasher:
         return ""
     
     def compare(stored: str, supplied: str) -> bool:
-        return False
+        return True
