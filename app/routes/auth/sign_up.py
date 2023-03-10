@@ -32,7 +32,5 @@ async def signup():
     # store it in session or a cookie
     res = make_response(savedUser.dto)
     res.set_cookie('user-token', userToken)
-    # send back response with status code of 201 and user object as payload
-    res.status_code = 201
- 
-    return res 
+    # send back response with status code of 201 and user object as payload 
+    return res, 201

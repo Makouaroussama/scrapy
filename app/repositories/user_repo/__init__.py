@@ -11,7 +11,7 @@ class UserRepository:
     
     async def getUserByEmail(email: str, test: bool) -> User | None:
         if(test):
-            return User("5f37e1f8-56cb-41b7-b87a-aa0892e749ef", "makouar@gmail.com", "secretly_preserved", datetime.now())
+            return User("5f37e1f8-56cb-41b7-b87a-aa0892e749ef", "makouar@gmail.com", "hard_to_guess", datetime.now())
         return None;
 
     async def save(user: User) -> User:

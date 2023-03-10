@@ -1,5 +1,5 @@
 from app import auth
-from flask import request, make_response, jsonify
+from flask import request, make_response
 from werkzeug.exceptions import BadRequest
 import validators
 from app.repositories.user_repo import UserRepository
@@ -27,19 +27,19 @@ async def signIn():
     if user == None:
         raise BadRequest("Invalid Credentials")
     
+    print("user", user)
     # compare user's password and password provided and return error if they do not match
-    if not user.isSamePassword(password=password):
+    if not user.isPasswordMatched(password=password):
         raise BadRequest("Invalid Credentials")
     
     # create a response
-    res = make_response(jsonify(user.dto()))
-    # generate a json web token
+    res = make_response(user.dto())
 
+    # generate a json web token
     userToken = jwt.encode(payload=user.payload(), key=os.getenv("JWT_KEY"), algorithm="HS256")
     
     # store it in session or a cookie
     res.set_cookie("user-token", userToken)
 
     # send back response with status code of 200 and user object as payload
-    res.status_code = 200
-    return res
+    return res, 200

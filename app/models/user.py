@@ -8,10 +8,9 @@ class User:
         self.password = PasswordHasher.toHash(password)
         self.createdAt = createdAt
 
-    def isSamePassword(self, password: str) -> bool:
+    def isPasswordMatched(self, password: str) -> bool:
         return PasswordHasher.compare(self.password, password)
 
-    
     
     def payload(self) -> dict[str, any]:
         return {
