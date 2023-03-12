@@ -1,7 +1,7 @@
 from app.db import db
 from app.models.user import User
 from datetime import datetime
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.exc import NoResultFound, DatabaseError
 
  
 class UserRepository:
@@ -17,16 +17,22 @@ class UserRepository:
         except Exception as e:
             if(isinstance(e, NoResultFound)):
                 return None
+            else:
+                print(e)
     
     def getUserByEmail(email: str, test: bool = False) -> User | None:
         if(test):
             return User("5f37e1f8-56cb-41b7-b87a-aa0892e749ef","makouar@gmail.com", "hard_to_guess", datetime.now())
+        
         try:
             user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
             return user
         except Exception as e:
             if(isinstance(e, NoResultFound)):
-                return None
+                return None           
+            else:
+                print(e)
+            
 
 
     def save(user: User) -> User:
@@ -37,6 +43,7 @@ class UserRepository:
             db.session.commit()
             return user
         except Exception as e:
-            print("error on save", e)
             db.session.rollback()
+            print(e)
+
         

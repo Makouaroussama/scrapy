@@ -1,6 +1,6 @@
 from werkzeug.wrappers import Request
 import jwt
-import os
+from app.configs import Config
 
 class CurrentUser:
     def __init__(self, app):
@@ -10,7 +10,7 @@ class CurrentUser:
         req = Request(environ=environ)
         userToken = req.cookies.get("user-token")
         try:
-            payload = jwt.decode(jwt=userToken,key=os.getenv("JWT_KEY"), algorithms=["HS256"])
+            payload = jwt.decode(jwt=userToken,key=Config.JWT_KEY, algorithms=["HS256"])
             environ["currentuser"] = payload
         except:
             environ["currentuser"] = None
