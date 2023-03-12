@@ -1,8 +1,8 @@
 from flask import make_response
-from app import app
+from app import app as router
 
-@app.route('/', methods=["GET", "POST"])
-@app.route('/index', methods=["GET", "POST"])
+@router.route('/', methods=["GET", "POST"])
+@router.route('/index', methods=["GET", "POST"])
 def index():
     res = make_response({
         "message": "working as expected"

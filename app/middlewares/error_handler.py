@@ -8,6 +8,7 @@ def handleExceptions(e: Exception):
     })
 
     if(isinstance(e, BadRequest)):
+        res.set_cookie("user-token", "", max_age=0)
         res.status_code = 400
 
     return res;

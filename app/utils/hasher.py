@@ -2,8 +2,7 @@ import bcrypt
 
 class PasswordHasher:
     def toHash(password: str) -> str:
-        salt = bcrypt.gensalt(16)
-        print(salt)
+        salt = bcrypt.gensalt(12)
         return bcrypt.hashpw(password.encode("utf-8"), salt)
     
     def compare(hashed: str, password: str) -> bool:

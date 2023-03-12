@@ -1,14 +1,14 @@
-from app import auth
+from . import auth
 from flask import request, make_response
 import validators
 from werkzeug.exceptions import BadRequest
 from app.repositories.user_repo import UserRepository
 from app.models.user import User
-from jwt import PyJWT
+import jwt
 import os
 
 @auth.route("/signup", methods=["POST"])
-async def signup(): 
+def signup(): 
     email = request.form["email"]
     password = request.form["password"]
     
@@ -25,12 +25,12 @@ async def signup():
         raise BadRequest("Email is already in use")
     
     # create new user and save it into db
-    savedUser = await UserRepository.save(user=User(email=email, password=password))
+    savedUser = UserRepository.save(user=User(email=email, password=password))
     
     # generate a json web token
-    userToken = PyJWT.encode(payload=savedUser.payload, key=os.getenv("JWT_KEY"))
+    userToken = jwt.encode(payload=savedUser.payload(), key=os.getenv("JWT_KEY"), algorithm="HS256")
     # store it in session or a cookie
-    res = make_response(savedUser.dto)
+    res = make_response(savedUser.dto())
     res.set_cookie('user-token', userToken)
     # send back response with status code of 201 and user object as payload 
     return res, 201

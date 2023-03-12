@@ -1,4 +1,4 @@
-from app import auth
+from . import auth 
 from flask import request, make_response
 
 @auth.route('/currentuser')
