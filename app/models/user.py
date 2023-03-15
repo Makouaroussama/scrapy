@@ -2,7 +2,7 @@ from __future__ import annotations
 from sqlalchemy_utils import UUIDType
 from datetime import datetime
 from app.utils.hasher import PasswordHasher
-from typing import Optional, Self
+from typing import Optional
 from ..db import db
 from sqlalchemy.sql import func
 from app.processes.decorators.validate_form import Credentials
